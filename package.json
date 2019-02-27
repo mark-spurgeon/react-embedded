@@ -1,0 +1,29 @@
+{
+  "name": "react-embedded",
+  "version": "0.1.2",
+  "description": "Build JS/HTML things that are easily embedded in Wordpress or other publishing platforms",
+  "main": "serve.js",
+  "bin":{
+    "react-embedded":"./serve.js"
+  },
+  "author": "Mark Spurgeon <markspurgeon96@hotmail.com>",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-react": "^7.0.0",
+    "babelify": "^10.0.0",
+    "browserify-global-shim": "^1.0.3",
+    "chalk": "^2.4.2",
+    "express": "^4.16.4",
+    "jsdom": "^13.2.0",
+    "mustache": "^3.0.1",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3"
+  },
+  "reactEmbedded": {
+    "index": "example/index.js",
+    "css": "example/style.css"
+  }
+}
