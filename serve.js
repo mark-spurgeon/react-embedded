@@ -8,10 +8,11 @@ var chalk = require('chalk');
 /* IO */
 var path = require('path');
 var fs = require('fs');
+var package = JSON.parse(fs.readFileSync('package.json', 'utf8'))
 var jsdom = require('jsdom');
 var browserify = require('browserify');
-var package = JSON.parse(fs.readFileSync('package.json', 'utf8'))
 var Mustache = require('mustache');
+var minify = require('html-minifier').minify;
 
 var jsFileName = package.reactEmbedded.index || 'src/index.js';
 var cssFileName = package.reactEmbedded.css || 'src/style.css';
@@ -44,7 +45,16 @@ app.get('/', function(req, res) {
         name:'AppName'
       }
     )
-    res.send(renderedHTML)
+    var minifiedHTML = minify(renderedHTML, {
+      removeAttributeQuotes:true,
+      collapseWhitespace:true,
+      minifyCSS:true,
+      removeComments:true,
+      removeEmptyAttributes:true,
+      trimCustomFragments:true,
+      useShortDoctype:true
+    })
+    res.send(minifiedHTML)
   })
 });
 app.listen(8080);

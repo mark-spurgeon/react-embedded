@@ -3,12 +3,17 @@
   "version": "0.1.2",
   "description": "Build JS/HTML things that are easily embedded in Wordpress or other publishing platforms",
   "main": "serve.js",
-  "bin":{
-    "react-embedded":"./serve.js"
+  "bin": {
+    "react-embedded": "./serve.js"
+  },
+  "scripts": {
+    "start":"node ./serve.js"
   },
   "author": "Mark Spurgeon <markspurgeon96@hotmail.com>",
   "license": "MIT",
-  "devDependencies": {},
+  "devDependencies": {
+    "html-minifier": "^3.5.21"
+  },
   "dependencies": {
     "@babel/core": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
