@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <title>Embedded React App</title>
     <link rel="stylesheet" href="/assets/dev.css">
-    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js" id="dev-script-react"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" id="dev-script-react-dom"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
     <script src="/assets/dev.js"></script>
   </head>
@@ -16,13 +16,16 @@
       <h1 class="heading">Embedded React App Preview</h1>
       <!-- the following is the only html that is actually output-->
       <div id="embedded-body">
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js" id="dev-script-react"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" id="dev-script-react-dom"></script>
 
-        <style media="screen" id="embedded-style">
-        </style>
+        <script type="text/javascript" id="embedded-script-react" charset="UTF-8"></script>
+        <script type="text/javascript" id="embedded-script-react-dom" charset="UTF-8"></script>
+        <style media="screen" id="embedded-style"></style>
         <div id="embedded-component">
           [enable js]
         </div>
-        <script id="embedded-bundle">
+        <script id="embedded-bundle" charset="UTF-8">
         </script>
       </div>
     </div>

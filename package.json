@@ -11,8 +11,7 @@
   },
   "author": "Mark Spurgeon <markspurgeon96@hotmail.com>",
   "license": "MIT",
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
     "@babel/core": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
@@ -28,6 +27,7 @@
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "reload": "^2.4.0",
+    "request": "^2.88.0",
     "socket.io": "^2.2.0",
     "terser": "^3.16.1",
     "uglifyify": "^5.0.1"

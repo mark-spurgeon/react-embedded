@@ -7,6 +7,7 @@ var fs = require('fs');
 var package = JSON.parse(fs.readFileSync('package.json', 'utf8'))
 
 /* Transforming code */
+var request = require('request');
 var jsdom = require('jsdom');
 var browserify = require('browserify');
 var Mustache = require('mustache');
@@ -32,6 +33,25 @@ app.get('/', (req, res) => {
       res.send(r.whole)
     })
   })
+})
+
+app.get('/a/:app', (req, res) => {
+  var f = path.join(package.reactEmbedded.path||'src',req.params.app)
+  if (fs.existsSync(f) && fs.lstatSync(f).isDirectory()) {
+    if (fs.existsSync(path.join(f,'index.js')) && fs.existsSync(path.join(f,'style.css')) ) {
+
+      BundleCode().then(code => {
+        BundleHTML(code).then( r => {
+          res.send(r.whole)
+        })
+      })
+
+    } else {
+      res.send({status:'error',message:"no 'index.js' or 'style.css' file in source"})
+    }
+  } else {
+    res.send({status:'error',message:"I doesn't seem to be an app: "+req.params.app})
+  }
 })
 
 app.get('/assets/:file', (req, res) => {
@@ -69,7 +89,7 @@ function BundleCode(){
     })
   });
 }
-function BundleHTML(code) {
+function BundleHTML(code, production=false) {
   return new Promise(function(resolve, reject) {
     var html = fs.readFileSync(path.join(__dirname, '/assets/dev.index.html'))
     var css = fs.readFileSync(cssFileName);
@@ -80,6 +100,10 @@ function BundleHTML(code) {
     doc.getElementById('embedded-bundle').innerHTML=code;
     doc.getElementById('embedded-style').innerHTML=css;
 
+    if (production===true) {
+      doc.getElementById('embedded-script-react').innerHTML = fs.readFileSync(path.join(__dirname, 'assets/react.production.min.js'));
+      doc.getElementById('embedded-script-react-dom').innerHTML = fs.readFileSync(path.join(__dirname, 'assets/react-dom.production.min.js'));
+    }
     /* inject html code to copy and paste */
     var wholeHTML = Mustache.render(
       doc.getElementsByTagName('html')[0].outerHTML,
@@ -100,7 +124,6 @@ function BundleHTML(code) {
       useShortDoctype:true
     })
     doc.getElementById('embed-text').innerHTML=outputHTML;
-
     resolve({whole:wholeHTML, output:outputHTML})
   });
 }

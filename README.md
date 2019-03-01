@@ -4,6 +4,7 @@ react-embedded
 A tool to build standalone React component that embeds in publishing platforms like Wordpress.
 
 ## Install
+
 `npm i -D react-embedded`
 
 ## Edit your `package.json`
@@ -24,7 +25,8 @@ A tool to build standalone React component that embeds in publishing platforms l
 
 ## Run
 
-`npm start`
+
+`npm start `
 
 This will run a server which will generate your code each time you go to http://localhost:8080
 
@@ -32,7 +34,7 @@ This will run a server which will generate your code each time you go to http://
 
 ```javascript
 
-import TextInput from 'TextInput'
+import TextInput from './TextInput'
 
 class Index extends React.Component {
   render() {
@@ -64,3 +66,4 @@ This very simple tool does just that.
 ## todo:
 
 * take into account a directory: means that it has to take decisions on a specific file structure, opinionated
+* Choose minified/non-minified version, as Wordpress messes up the charset with JS, it's best to access main js libs from outside.
