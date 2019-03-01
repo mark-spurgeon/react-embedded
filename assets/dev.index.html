@@ -3,82 +3,35 @@
   <head>
     <meta charset="utf-8">
     <title>Embedded React App</title>
+    <link rel="stylesheet" href="/assets/dev.css">
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <script src="/assets/dev.js"></script>
   </head>
   <body>
     <style media="screen">
-      * {
-        margin:0px;
-        padding:0px;
-        font-family:Helvetica, sans-serif;
-      }
-      body {
-        background:#e1e1e6
-      }
-      h1.heading {
-        font-size:24px;
-        margin-left:26px;
-        margin-top:26px;
-      }
-      #embedded-body {
-        margin:26px;
-        margin-top:13px;
-        display:block;
-        width:800px;
-        height:600px;
-        border-style:solid;
-        border-width:2px;
-        border-color:#d4d4d4;
-        border-radius:3px;
-        background:white;
-        position:relative;
-      }
-
-      #embed-text {
-        width:400px;
-        height:605px;
-        margin-left:26px;
-        margin-top:13px;
-        padding:12px;
-        border-style:solid;
-        border-width:2px;
-        border-color:#d4d4d4;
-        border-radius:3px;
-        background:white;
-        color:rgb(140,140,140)
-      }
-
-      body {
-        display:flex;
-      }
-      .flex {
-        flex:1;
-      }
     </style>
     <div class="flex">
-      <h1 class="heading">Embedded React App Builder</h1>
+      <h1 class="heading">Embedded React App Preview</h1>
+      <!-- the following is the only html that is actually output-->
       <div id="embedded-body">
-        <script type="text/javascript">
-          function select(e) {
-            document.getElementById("embed-text").select()
-          }
-        </script>
-        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
-        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-        <script id="embedded-bundle" type="text/babel">
-        </script>
+
         <style media="screen" id="embedded-style">
         </style>
-        <div id="embedded">
+        <div id="embedded-component">
           [enable js]
         </div>
+        <script id="embedded-bundle">
+        </script>
       </div>
     </div>
     <div class="flex">
-      <h1 class="heading">Copy this to Wordpress/Other</h1>
+      <h1 class="heading">Copy/Paste to website</h1>
       <textarea id="embed-text" onFocus="select()">
 
       </textarea>
+      <button onclick="build()" class="build-button">Get the Code !</button>
     </div>
 
   </body>

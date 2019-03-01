@@ -56,6 +56,11 @@ ReactDOM.render(
 > Don't import 'react' or 'react-dom', as this will needlessly slow down the process.
 
 ## Why ?
+
 React is a language that allows quick building of user interfaces. The only problem is that it takes a lot of configuration, making it difficult to just copy/paste React apps onto publishing platforms like Wordpress.
 
 This very simple tool does just that.
+
+## todo:
+
+* take into account a directory: means that it has to take decisions on a specific file structure, opinionated
