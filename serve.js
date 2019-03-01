@@ -13,9 +13,10 @@ var browserify = require('browserify');
 var Mustache = require('mustache');
 var minify = require('html-minifier').minify;
 
-var filePath = package.reactEmbedded.path || 'src';
-var jsFileName = path.join( filePath, package.reactEmbedded.index || 'index.js' ) ;
-var cssFileName = path.join( filePath, package.reactEmbedded.css || 'style.css' );
+var sourcePath = package.reactEmbedded.path || 'src'
+var jsFilePattern = 'index.js'
+var cssFilePattern = 'style.css'
+
 
 /* Server */
 var express = require('express');
@@ -23,25 +24,42 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-const watcher = require('chokidar').watch(path.join(process.cwd(), filePath))
+const watcher = require('chokidar').watch(path.join(process.cwd(), sourcePath))
 
 server.listen(8080);
 
 app.get('/', (req, res) => {
-  BundleCode().then(code => {
-    BundleHTML(code).then( r => {
-      res.send(r.whole)
-    })
+  var appList = []
+  var apps = fs.readdirSync(path.join(process.cwd(), sourcePath));
+  apps.forEach(a => {
+    var appdir = path.join(process.cwd(), sourcePath, a);
+    if (fs.lstatSync(appdir).isDirectory()) {
+      if (fs.existsSync(path.join(appdir,jsFilePattern))) {
+        appList.push({
+          name:a,
+          link:'/a/'+a
+          // other things
+        })
+      } else {
+        console.error("No js file found for app ", a);
+      }
+    }
   })
+  var template = fs.readFileSync(path.join(__dirname, 'assets','dev.directory.html')).toString();
+  var args = {
+    apps:appList
+  }
+  res.send(Mustache.render(template, args))
 })
 
 app.get('/a/:app', (req, res) => {
-  var f = path.join(package.reactEmbedded.path||'src',req.params.app)
+  var appname = req.params.app;
+  var f = path.join(package.reactEmbedded.path||'src',appname)
   if (fs.existsSync(f) && fs.lstatSync(f).isDirectory()) {
     if (fs.existsSync(path.join(f,'index.js')) && fs.existsSync(path.join(f,'style.css')) ) {
 
-      BundleCode().then(code => {
-        BundleHTML(code).then( r => {
+      BundleCode(appname).then(code => {
+        BundleHTML(appname, code).then( r => {
           res.send(r.whole)
         })
       })
@@ -54,45 +72,50 @@ app.get('/a/:app', (req, res) => {
   }
 })
 
-app.get('/assets/:file', (req, res) => {
-  var f = path.join(__dirname,'assets',req.params.file)
-  var text = fs.readFileSync(f);
-  res.send(text)
-})
+app.use('/assets/',express.static(path.join(__dirname, 'assets')) )
 
 io.on('connection', function (socket) {
   watcher.on('all', (event, e) => {
+    if (!sourcePath.endsWith('/')){sourcePath+="/"}
+    var app = e.replace(path.join(process.cwd(),sourcePath), '').split('/')[0];
     socket.emit('updating',true);
-    BundleCode().then(code => {
+    BundleCode(app).then(code => {
       socket.emit('component', code)
     })
   })
-  socket.on('build', function (data) {
-    BundleCode().then(code => {
-      BundleHTML(code).then(html => {
+  socket.on('build', function (appname) {
+    BundleCode(appname).then(code => {
+      BundleHTML(appname, code, production=true).then(html => {
         socket.emit('build', html.output)
       })
     })
   });
 });
 
-function BundleCode(){
+function BundleCode(appname){
   return new Promise(function(resolve, reject) {
-    var b = browserify();
-    b.add(jsFileName);
-    b.transform("babelify", {presets: ["@babel/preset-env", "@babel/preset-react"]})
-    b.transform("uglifyify", {global:true})
-    b.bundle( (e, buffer) => {
-      if (e) return console.log(e);
-      var code = buffer.toString();
-      resolve(code)
-    })
+    var jsFileName=path.join(sourcePath,appname, jsFilePattern)
+    if (fs.existsSync(jsFileName)) {
+      var b = browserify();
+      b.add(jsFileName);
+      b.transform("babelify", {presets: ["@babel/preset-env", "@babel/preset-react"]})
+      b.transform("uglifyify", {global:true})
+      b.bundle( (e, buffer) => {
+        if (e) return console.log(e);
+        var code = buffer.toString();
+        resolve(code)
+      })
+    } else {
+      console.error("Error: no js file named '%s'", jsFilePattern);
+    }
   });
 }
-function BundleHTML(code, production=false) {
+function BundleHTML(appname, code, production=false) {
   return new Promise(function(resolve, reject) {
     var html = fs.readFileSync(path.join(__dirname, '/assets/dev.index.html'))
+    var cssFileName=path.join(sourcePath,appname, cssFilePattern)
     var css = fs.readFileSync(cssFileName);
+    var jsFileName=path.join(sourcePath,appname, jsFilePattern)
     var js = fs.readFileSync(jsFileName)
 
     var el = new jsdom.JSDOM(html);
@@ -108,7 +131,7 @@ function BundleHTML(code, production=false) {
     var wholeHTML = Mustache.render(
       doc.getElementsByTagName('html')[0].outerHTML,
       {
-        name:'AppName'
+        app:appname
       }
     )
 

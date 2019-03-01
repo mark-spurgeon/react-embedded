@@ -4,7 +4,8 @@
   font-family:Helvetica, sans-serif;
 }
 body {
-  background:#e1e1e6
+  background:#e1e1e6;
+  display: flex;
 }
 h1.heading {
   font-size:24px;
@@ -56,9 +57,6 @@ h1.heading {
   cursor: pointer;
 }
 
-body {
-  display:flex;
-}
 .flex {
   flex:1;
 }

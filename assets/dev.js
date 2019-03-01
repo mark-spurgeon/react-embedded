@@ -13,6 +13,6 @@ socket.on('updating', function(data) {
 function select(e) {
   document.getElementById("embed-text").select()
 }
-function build(){
-  socket.emit('build','please')
+function build(app){
+  socket.emit('build',app)
 }
