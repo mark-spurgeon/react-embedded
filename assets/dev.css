@@ -1,10 +1,14 @@
 * {
   margin:0px;
   padding:0px;
-  font-family:Helvetica, sans-serif;
+  font-family:"IBM Plex Sans",Helvetica, sans-serif;
 }
 body {
   background:#e1e1e6;
+  width: 100%;
+  height:100%;
+}
+.flexbox {
   display: flex;
 }
 h1.heading {
@@ -37,7 +41,9 @@ h1.heading {
   border-color:#d4d4d4;
   border-radius:3px;
   background:white;
-  color:rgb(140,140,140)
+  color:rgb(140,140,140);
+  font-size: 11px;
+  resize: none;
 }
 
 .build-button {
@@ -59,4 +65,44 @@ h1.heading {
 
 .flex {
   flex:1;
+}
+
+#updater {
+  height:14px;
+  font-size: 12px;
+  background-color: white;
+  padding:2px;
+  padding-left:28px;
+  transition: all .2s;
+}
+#updater.updated {
+  height:14px;
+  font-size: 12px;
+  background-color: white;
+  color: rgb(40,210,60);
+}
+#updater.updating {
+  height:16px;
+  font-size: 14px;
+  padding:6px;
+  padding-left:28px;
+  background-color: rgb(255,255,60);
+  color:black;
+}
+#updater.error {
+  background-color: red;
+}
+#updater.building {
+  height:16px;
+  font-size: 14px;
+  padding:6px;
+  padding-left:28px;
+  background-color: rgb(70,60,225);
+  color:white;
+}
+#updater.built {
+  height:14px;
+  font-size: 12px;
+  background-color: white;
+  color: rgb(70,60,225);
 }

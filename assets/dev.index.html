@@ -2,40 +2,42 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Embedded React App</title>
+    <title>Embedded React - {{app}} </title>
     <link rel="stylesheet" href="/assets/dev.css">
-    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js" id="dev-script-react"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" id="dev-script-react-dom"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <script crossorigin src="/assets/react.production.min.js"></script>
+    <script crossorigin src="/assets/react-dom.production.min.js"></script>
+    <script src="/assets/socket.io.js"></script>
     <script src="/assets/dev.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans" rel="stylesheet">
   </head>
   <body>
     <style media="screen">
     </style>
-    <div class="flex">
-      <h1 class="heading">Embedded React App Preview</h1>
-      <!-- the following is the only html that is actually output-->
-      <div id="embedded-body">
-        <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js" id="dev-script-react"></script>
-        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" id="dev-script-react-dom"></script>
-
-        <script type="text/javascript" id="embedded-script-react" charset="UTF-8"></script>
-        <script type="text/javascript" id="embedded-script-react-dom" charset="UTF-8"></script>
-        <style media="screen" id="embedded-style"></style>
-        <div id="embedded-component">
-          [enable js]
+    <div id="updater" class="inactive">
+      Welcome to the Embedded React App Builder
+    </div>
+    <div class="flexbox">
+      <div class="flex">
+        <h1 class="heading">Preview</h1>
+        <!-- the following is the only html that is actually output-->
+        <div id="embedded-body">
+          <script type="text/javascript" id="embedded-script-react" charset="UTF-8"></script>
+          <script type="text/javascript" id="embedded-script-react-dom" charset="UTF-8"></script>
+          <style media="screen" id="embedded-style"></style>
+          <div id="embedded-component">
+            [enable js]
+          </div>
+          <script id="embedded-bundle" charset="UTF-8">
+          </script>
         </div>
-        <script id="embedded-bundle" charset="UTF-8">
-        </script>
+      </div>
+      <div class="flex">
+        <h1 class="heading">Copy/Paste to website</h1>
+        <textarea id="embed-text" onFocus="select()">
+
+        </textarea>
+        <button onclick="build('{{app}}')" class="build-button">Get the Code !</button>
       </div>
     </div>
-    <div class="flex">
-      <h1 class="heading">Copy/Paste to website</h1>
-      <textarea id="embed-text" onFocus="select()">
-
-      </textarea>
-      <button onclick="build('{{app}}')" class="build-button">Get the Code !</button>
-    </div>
-
   </body>
 </html>

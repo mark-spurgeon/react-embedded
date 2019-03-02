@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-/* Server */
+/* Stuff */
+var opn = require('opn');
 var chalk = require('chalk');
 var path = require('path');
 var fs = require('fs');
@@ -25,8 +26,6 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 const watcher = require('chokidar').watch(path.join(process.cwd(), sourcePath))
-
-server.listen(8080);
 
 app.get('/', (req, res) => {
   var appList = []
@@ -151,5 +150,9 @@ function BundleHTML(appname, code, production=false) {
   });
 }
 
-console.log(chalk.bold.blue('Check out your embedded code at \n'));
-console.log(chalk.blue('          http://localhost:8080\n'));
+server.listen(8080, (e) => {
+  if (e) {console.error(e);}
+  console.log(chalk.bold.blue('Check out your embedded code at \n'));
+  console.log(chalk.blue('          http://localhost:8080\n'));
+  opn("http://localhost:8080/")
+});

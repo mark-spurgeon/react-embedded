@@ -3,7 +3,9 @@ react-embedded
 
 A tool to build standalone React component that embeds in publishing platforms like Wordpress.
 
+
 ## Install
+
 
 `npm i -D react-embedded`
 
@@ -65,5 +67,13 @@ This very simple tool does just that.
 
 ## todo:
 
-* take into account a directory: means that it has to take decisions on a specific file structure, opinionated
-* Choose minified/non-minified version, as Wordpress messes up the charset with JS, it's best to access main js libs from outside.
+* take into account a directory: means that it has to take decisions on a specific file structure, opinionated ✌️
+* Choose minified/non-minified version, as Wordpress messes up the charset with JS, it's best to access main js libs from outside. ✍️
+
+## Resources for data visualisation libraries & other stuff
+__top to bottom : order of up-to-dateness__  
+* [https://github.com/FormidableLabs/victory](victory - up to date )
+* [https://github.com/plouc/nivo](nivo - package for each chart, which is nice)
+* [https://github.com/alibaba/BizCharts](bizcharts - up to date, chinese language but alright for coding)
+* [https://github.com/recharts/recharts](recharts - D3, pretty up to date)
+* [https://github.com/reactjs/react-chartjs](chartjs - not updated since last year )
