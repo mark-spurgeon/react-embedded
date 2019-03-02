@@ -9,7 +9,7 @@ If you've already set up React-Embedded, you can now build apps, [this guide](co
 
 You can download Node through their [website](https://nodejs.org/en/#download). However, on Linux or Mac platforms, you might prefer to install it via the terminal.
 
-On macs, install [homebrew](https://brew.sh/), then run :
+On a mac, install [homebrew](https://brew.sh/), then run :
 `brew install node`.
 
 NPM is a package manager, just like brew, for node projects. It is usually installed with node. To check if node and npm are installed, run :
@@ -32,17 +32,28 @@ npm install --save react-embedded
 
 ```
 
-To initialize an app, you need to run the 'rembedded' script. To do this, run this command
-```bash
+To initialize an app, you need to run the 'rembedded' script. To do this, add these scripts to your `package.json`
+```json
 
-npm link
-
-```
-
-then run this command
-
-```bash
-
-rembedded init <appname>
+{
+  "scripts" : {
+    "start":"rembedded",
+    "init":"rembedded:init"
+  }
+}
 
 ```
+
+Finally, create your app:
+
+```bash
+npm run init NewApp
+```
+This will create a 'NewApp' folder in 'src/' containing a `index.js` file that will include the React component and a `style.css` file.
+
+----
+## Run your app:
+```bash
+npm start
+```
+This will create a server. Access it at http://localhost:8080
