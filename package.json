@@ -1,13 +1,16 @@
 {
   "name": "react-embedded",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Build JS/HTML things that are easily embedded in Wordpress or other publishing platforms",
   "main": "serve.js",
   "bin": {
-    "react-embedded": "./serve.js"
+    "react-embedded": "./serve.js",
+    "rembedded": "./serve.js",
+    "rembedded:init": "./init.js"
   },
   "scripts": {
-    "start": "node ./serve.js"
+    "start": "node ./serve.js",
+    "rembedded:init": "node ./init.js"
   },
   "author": "Mark Spurgeon <markspurgeon96@hotmail.com>",
   "license": "MIT",
@@ -24,7 +27,9 @@
     "html-minifier": "^3.5.21",
     "jsdom": "^13.2.0",
     "mustache": "^3.0.1",
+    "node-sass": "^4.11.0",
     "opn": "^5.4.0",
+    "prompt": "^1.0.0",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "reload": "^2.4.0",
@@ -34,8 +39,6 @@
     "uglifyify": "^5.0.1"
   },
   "reactEmbedded": {
-    "path": "example/",
-    "index": "index.js",
-    "css": "style.css"
+    "path": "src/"
   }
 }

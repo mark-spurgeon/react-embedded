@@ -145,7 +145,7 @@ function BundleHTML(appname, code, production=false) {
       trimCustomFragments:true,
       useShortDoctype:true
     })
-    doc.getElementById('embed-text').innerHTML=outputHTML;
+    //doc.getElementById('embed-text').innerHTML=outputHTML;
     resolve({whole:wholeHTML, output:outputHTML})
   });
 }

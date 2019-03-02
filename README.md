@@ -19,8 +19,7 @@ A tool to build standalone React component that embeds in publishing platforms l
     "start":"react-embedded"
   },
   "reactEmbedded": {
-    "index":"src/index.js",
-    "css":"src/style.css"
+    "path":"src/"
   }
 }
 ```

@@ -5,8 +5,8 @@ class Index extends React.Component {
   render() {
     return (
       <div>
-        <h1>Chart</h1>
-        <p>100%;</p>
+        <h1>This is a chart</h1>
+        <p>10%;</p>
         <Comp />
       </div>
     )
