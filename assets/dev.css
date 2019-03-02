@@ -2,9 +2,10 @@
   margin:0px;
   padding:0px;
   font-family:"IBM Plex Sans",Helvetica, sans-serif;
+  transition: all .3s;
 }
 body {
-  background:rgb(245,245,249);
+  background:rgb(245,245,251);
   width: 100%;
   height:100%;
 }
@@ -23,6 +24,7 @@ h1.heading {
   margin-top:13px;
   margin-bottom:0px;
   padding:4px;
+  padding-right:6px;
   display:block;
   width:800px;
   height:600px;
@@ -44,7 +46,7 @@ h1.heading {
   border-width:1px;
   border-color:#d4d4d4;
   border-radius:5px;
-  background:rgb(230,230,230);
+  background:rgb(242,242,246);
   color:rgb(140,140,140);
   font-size: 11px;
   resize: none;
@@ -73,19 +75,19 @@ h1.heading {
   padding-left:28px;
   transition: all .2s;
 }
-#updater.updated {
-  height:14px;
-  font-size: 12px;
-  background-color: white;
-  color: rgb(40,210,60);
-}
 #updater.updating {
   height:16px;
   font-size: 14px;
   padding:6px;
   padding-left:28px;
-  background-color: rgb(255,255,60);
-  color:black;
+  background-color: rgb(40,210,60);
+  color:rgb(250,250,252);
+}
+#updater.updated {
+  height:16px;
+  font-size: 12px;
+  background-color: rgb(250,250,252);
+  color: rgb(40,210,60);
 }
 #updater.error {
   background-color: red;
@@ -95,14 +97,28 @@ h1.heading {
   font-size: 14px;
   padding:6px;
   padding-left:28px;
-  background-color: rgb(255,245,160);
-  color:white;
+  background-color: rgb(70,60,225);
+  color:rgb(250,250,252);
 }
 #updater.built {
   height:14px;
   font-size: 12px;
-  background-color: white;
+  background-color: rgb(250,250,252);
   color: rgb(70,60,225);
+}
+#updater.restyling {
+  height:16px;
+  font-size: 14px;
+  padding:6px;
+  padding-left:28px;
+  background-color: rgb(255,255,60);
+  color:black;
+}
+#updater.restyled {
+  height:16px;
+  font-size: 12px;
+  background-color: rgb(250,250,251);
+  color:rgb(235,215,60);
 }
 
 .page-info {
@@ -110,11 +126,12 @@ h1.heading {
   width: auto;
   margin-top:10px;
   height:36px;
-  background: rgb(230,230,230);
+  background: rgb(240,240,243);
   border-style: solid;
   border-width: 1px;
-  border-radius: 3px;
-  border-color: #d4d4d4
+  border-radius: 5px;
+  border-color: #d4d4d4;
+  overflow: hidden;
 }
 .p-i-link {
   float: right;
@@ -125,14 +142,16 @@ h1.heading {
   border-width: 0px;
   border-left-width: 1px;
   border-color:#d4d4d4;
-
   line-height: 36px;
   vertical-align: middle;
   font-size: 11px;
   text-decoration: none;
   color:black;
+  background-color: transparent;
+  transition: background-color .2s;
 }
 .p-i-link:hover {
+  background-color: rgb(250,250,251);
   text-decoration: underline;
 }
 /*.p-i-link:nth-child(1){

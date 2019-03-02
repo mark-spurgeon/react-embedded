@@ -1,2 +1,2 @@
-Code your application
+Code
 =====
