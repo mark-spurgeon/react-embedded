@@ -14,31 +14,42 @@
   },
   "author": "Mark Spurgeon <markspurgeon96@hotmail.com>",
   "license": "MIT",
-  "devDependencies": {},
+  "devDependencies": {
+    "@nivo/bar": "^0.52.1",
+    "victory": "^32.0.0"
+  },
   "dependencies": {
     "@babel/core": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
+    "babel-plugin-recharts": "^1.2.0",
     "babelify": "^10.0.0",
     "browserify-global-shim": "^1.0.3",
+    "browserify-shim": "^3.8.14",
     "chalk": "^2.4.2",
+    "chart.js": "^1.1.1",
     "chokidar": "^2.1.2",
     "express": "^4.16.4",
     "html-minifier": "^3.5.21",
-    "jsdom": "^13.2.0",
     "mustache": "^3.0.1",
     "node-sass": "^4.11.0",
     "opn": "^5.4.0",
     "prompt": "^1.0.0",
     "react": "^16.8.3",
+    "react-chartjs": "^1.2.0",
     "react-dom": "^16.8.3",
+    "recharts": "^1.5.0",
     "reload": "^2.4.0",
     "request": "^2.88.0",
     "socket.io": "^2.2.0",
     "terser": "^3.16.1",
-    "uglifyify": "^5.0.1"
+    "uglifyify": "^5.0.1",
+    "watchify": "^3.11.1"
   },
   "reactEmbedded": {
     "path": "src/"
+  },
+  "browserify-shim": {
+    "victory": "victory"
   }
 }
