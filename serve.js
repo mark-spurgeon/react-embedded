@@ -98,7 +98,7 @@ io.on('connection', function (socket) {
   /* JS render request */
   socket.on('js', function (appname) {
     var jsFileName=path.join(sourcePath,appname, jsFilePattern)
-    var b = browserifies[jsFileName] = watchify(browserify(Object.assign({}, watchify.args, {entries:jsFileName})));
+    var b = browserifies[jsFileName] = getBrowserify(jsFileName);
     b.on('update', function() {
       socket.emit('updating',true)
       BundleJS(b, jsFileName).then(code => {socket.emit('js',code)})
@@ -120,7 +120,7 @@ io.on('connection', function (socket) {
     var jsFileName=path.join(sourcePath,appname, jsFilePattern)
     var cssFileName=path.join(sourcePath,appname, cssFilePattern);
     var b = browserifies[jsFileName];
-    if (!b) {b=watchify(browserify(Object.assign({}, watchify.args, {entries:jsFileName})))};
+    if (!b) {b=getBrowserify(jsFileName)};
     BundleJS(b, jsFileName).then(code => {
       BundleCSS(cssFileName).then(css => {
         BundleOutputHTML(appname, code, css, production=true).then(html => {
@@ -151,7 +151,6 @@ function BundleCSS(cssFileName) {
 /* JS bundle (browserify & babel)*/
 function BundleJS(bundler, jsFileName){
   return new Promise(function(resolve, reject) {
-      var recharts = require('recharts');
       bundler.add(jsFileName);
       bundler.transform("babelify", {presets: ["@babel/preset-env", "@babel/preset-react"], plugins:['recharts']})
       bundler.transform("uglifyify", {global:true})
@@ -231,6 +230,32 @@ function BundleApplicationHTML(appname) {
 
     resolve(wholeHTML)
   });
+}
+
+function getBrowserify(jsFileName) {
+  var b = watchify(browserify(Object.assign({}, watchify.args, {
+    entries:jsFileName,
+    debug:true,
+    cache : {}, // <---- here is important things for optimization
+    packageCache : {}, // <----  and here
+    libs: {
+      src:['./libs/*.js']
+    },
+    options: {
+      alias: [
+        './libs/recharts.js:recharts',
+        './libs/react.production.min.js:react',
+        './libs/react-dom.production.min.js:react-dom'
+      ],
+      external:[
+        './libs/recharts.js',
+        './libs/react.production.min.js',
+        './libs/react-dom.production.min.js'
+      ]
+    }
+  })));
+  b.on('error', e=> {console.log(e);})
+  return b
 }
 /* Server */
 server.listen(8080, (e) => {

@@ -3,9 +3,9 @@ react-embedded
 
 A tool to build standalone React component that embeds in publishing platforms like Wordpress.
 
+> This project is in its early phase. Please use this to test, improve,..., but be aware that there might be bugs or it might not work as you'd expect it to.
 
-## Install
-
+## Install (after initialising an npm environment)
 
 `npm i -D react-embedded`
 
@@ -16,12 +16,18 @@ A tool to build standalone React component that embeds in publishing platforms l
 {
   "name":"AppName",
   "scripts": {
-    "start":"react-embedded"
-  },
-  "reactEmbedded": {
-    "path":"src/"
+    "start":"rembedded",
+    "init":"rembedded:init"
   }
 }
+```
+
+## Initialise a React-Embedded app
+
+```bash
+
+npm run init first-app
+
 ```
 
 ## Run
@@ -29,34 +35,8 @@ A tool to build standalone React component that embeds in publishing platforms l
 
 `npm start `
 
-This will run a server which will generate your code each time you go to http://localhost:8080
+This will run a server at localhost:8080, where you will be able to chose your appss
 
-## Code - `index.js`
-
-```javascript
-
-import TextInput from './TextInput'
-
-class Index extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>Chart</h1>
-        <p>10% increase</p>
-        <TextInput />
-      </div>
-    )
-  }
-};
-
-ReactDOM.render(
-  <Index />,
-  document.getElementById("embedded")
-);
-
-```
-
-> Don't import 'react' or 'react-dom', as this will needlessly slow down the process.
 
 ## Why ?
 
@@ -64,12 +44,12 @@ React is a language that allows quick building of user interfaces. The only prob
 
 This very simple tool does just that.
 
-## todo:
+### todo:
 
 * take into account a directory: means that it has to take decisions on a specific file structure ✌️
 * Choose minified/non-minified version, as Wordpress messes up the charset with JS, it's best to access main js libs from outside. ✍️
 
-## Resources for data visualisation libraries & other stuff
+### Resources for data visualisation libraries & other stuff
 
 *Top to bottom : order of up-to-dateness*
 
