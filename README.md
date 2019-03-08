@@ -48,6 +48,7 @@ This very simple tool does just that.
 
 * take into account a directory: means that it has to take decisions on a specific file structure ✌️
 * Choose minified/non-minified version, as Wordpress messes up the charset with JS, it's best to access main js libs from outside. ✍️
+* Bundling Error handling
 
 ### Resources for data visualisation libraries & other stuff
 

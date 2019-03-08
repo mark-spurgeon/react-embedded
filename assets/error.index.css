@@ -1,0 +1,66 @@
+#embedded-body {
+  overflow: auto !important;
+}
+#embedded-container {
+  border-width:0px !important;
+  transition: none;
+  overflow: auto;
+}
+#error-block {
+  background:white;
+  border-style: none;
+}
+#error-block .error-header {
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  background: rgb(240,50,60);
+  color: white;
+  text-align: left;
+  padding-left:4px;
+  padding-top:6px;
+  padding-bottom:6px;
+  font-size: 21px;
+}
+#error-block .error-subheader {
+  background: rgb(228,220,220);
+  color:rgb(119,110,110);
+  padding:4px;
+  padding-left:4px;
+  font-size: 12px
+}
+
+#error-block .error-container {
+  background:rgb(240,235,235);
+  padding:4px;
+  padding-top:6px;
+  padding-bottom:6px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+#error-block .error-details {
+  color:rgb(135,130,130);
+  font-size: 12px;
+}
+#error-block .error-message {
+  background: rgb(250,240,240);
+  margin-left:16px;
+  margin-right:16px;
+  margin-top:8px;
+  margin-bottom:16px;
+  padding:12px;
+  border-radius: 3px;
+  font-family:monospace;
+  font-size: 16px
+}
+#error-block span {
+  font-family:monospace;
+}
+span.where {
+  color: rgb(210,210,210)
+}
+span.file {
+  background:rgb(240,240,240);
+  padding-left:2px;
+  padding-right: 2px;
+  border-radius: 3px;
+}

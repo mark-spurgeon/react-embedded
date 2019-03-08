@@ -1,0 +1,9 @@
+<div id="error-block">
+  <link rel="stylesheet" href="/assets/error.index.css">
+  <h1 class="error-header">{{type}} <span class="where">(line {{line}}, column {{column}})</span></h1>
+  <div class="error-subheader">Found at file <span class="file">{{filename}}</span></div>
+  <div class="error-container">
+    <p class="error-details">In depth :</p>
+    <div class="error-message">{{{error}}}</div>
+  </div>
+</div>

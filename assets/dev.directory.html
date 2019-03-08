@@ -6,16 +6,13 @@
     <style media="screen">
       {{{devcss}}}
     </style>
-    <link rel="stylesheet" href="/assets/dev.directory.css">
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans" rel="stylesheet">
   </head>
-  <body>
-    <link rel="stylesheet" href="/assets/dev.css">
-    <link rel="stylesheet" href="/assets/dev.directory.css">
+  <body id="directory">
     <div class="container">
-      <h1 class="heading">Embedded React App</h1>
+      <h1 class="heading">Choose an App</h1>
       {{#apps}}
-        <a href="{{link}}" class="App">
+        <a href="{{link}}" class="app-icon">
           {{name}}
         </a>
       {{/apps}}

@@ -1,13 +1,30 @@
 var buildMessage="< Click on the button bellow to generate code! />";
 let timer;
+let localApp;
 
 var socket = io('http://localhost:8080');
+socket.on('error', function(data) {
+  console.error(data);
+})
 socket.on('js', function (data) {
   eval(data);
-  console.log('evaluated code');
+  console.log('Updating JS');
+  if (document.getElementById('updater').className==='error'){
+    if (localApp){
+      socket.emit('css',localApp)
+    }
+  }
   document.getElementById('updater').className="updated";
   document.getElementById('updater').innerHTML="Updated at "+ getTime()+" ("+endTimer()+" seconds)";
   document.getElementById('embed-text').innerHTML = buildMessage;
+});
+socket.on('bundling-error', function (error) {
+  console.error(error.error);
+  document.getElementById('embedded-style').innerHTML = '';
+  document.getElementById('embedded-component').innerHTML = unescape(encodeURIComponent(error.html));
+  document.getElementById('updater').className="error"
+  document.getElementById('updater').innerHTML="Error ("+ getTime()+") : "+error.data.name;
+
 });
 socket.on('css', function(data) {
   document.getElementById('embedded-style').innerHTML = data.trim();
@@ -36,12 +53,14 @@ function select(e) {
   document.getElementById("embed-text").select()
 }
 function build(app){
+  localApp=app;
   startTimer();
   document.getElementById('updater').className="building"
   document.getElementById('updater').innerHTML="Building HTML code..."
   socket.emit('build',app);
 }
 function onLoad(app) {
+  localApp=app;
   startTimer();
   socket.emit('css',app);
   setTimeout(function () {

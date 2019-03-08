@@ -83,6 +83,12 @@ app.use('/assets/',express.static(path.join(__dirname, 'assets')) )
 
 /* Socket IO - hot reload */
 io.on('connection', function (socket) {
+  let previousId;
+  const safeJoin = currentId => {
+    socket.leave(previousId);
+    socket.join(currentId);
+    previousId = currentId;
+  };
   /* Chokidar event - CSS */
   watcher.on('all', (event, e) => {
     if (!sourcePath.endsWith('/')){sourcePath+="/"}
@@ -101,11 +107,18 @@ io.on('connection', function (socket) {
     var b = browserifies[jsFileName] = getBrowserify(jsFileName);
     b.on('update', function() {
       socket.emit('updating',true)
-      BundleJS(b, jsFileName).then(code => {socket.emit('js',code)})
+      BundleJS(b, jsFileName)
+        .then(code => {socket.emit('js',code)})
+        .catch(error => {BundleError(error).then(error=>{socket.emit('bundling-error', error)})})
     })
-    BundleJS(b, jsFileName).then(code => {
-      socket.emit('js', code)
-    });
+
+    BundleJS(b, jsFileName)
+      .then(code => {socket.emit('js', code)})
+      .catch(error => {
+        BundleError(error)
+          .catch(e=>{console.log('couldnt bundle error', e)})
+          .then(err=>{socket.emit('bundling-error', err)})
+      })
   });
   /* CSS render request */
   socket.on('css', function (appname) {
@@ -155,12 +168,14 @@ function BundleJS(bundler, jsFileName){
       bundler.transform("babelify", {presets: ["@babel/preset-env", "@babel/preset-react"], plugins:['recharts']})
       bundler.transform("uglifyify", {global:true})
       bundler.bundle( (e, buffer) => {
-        if (e) return console.log(e);
-        var code = buffer.toString();
-        resolve(code)
+        if (e) {
+          reject(e);
+        } else {
+          var code = buffer.toString();
+          resolve(code)
+        }
       }).on('error', e => {
-        console.log(e);
-        reject('Error '+ e)
+        reject(e)
       })
   });
 }
@@ -191,19 +206,48 @@ function BundleOutputHTML(appname, code, css) {
         reactDomScript:reactDomScript
       }
     )
-    /* minify html for minimum size */
-    var outputHTML = minify(wholeHTML, {
-      removeAttributeQuotes:true,
-      collapseWhitespace:true,
-      minifyCSS:true,
-      removeComments:true,
-      removeEmptyAttributes:true,
-      trimCustomFragments:true,
-      useShortDoctype:true
-    })
     resolve(outputHTML)
   });
 }
+
+function BundleError(e) {
+  return new Promise(function(resolve, reject) {
+    try {
+      var html = fs.readFileSync(path.join(__dirname, '/assets/error.index.html')).toString();
+      var Convert = require('ansi-to-html');
+      var convert = new Convert({
+        fg: '#000',
+        bg: '#000',
+        newline: true,
+        escapeXML: false,
+        stream: false,
+        spaces:true
+      });
+      if (!e.loc) {
+        e.loc={line:'...',column:'...'}
+      }
+      var formattedHTML = Mustache.render(
+        html,
+        {
+          error:convert.toHtml(e.message.toString())/*.replace('\n','<br/>').replace(new RegExp("/^[0-9]*$/i", "gm"),'<br/>')*/,
+          type:e.name,
+          code:e.code || '..',
+          line:e.loc.line || '..',
+          column:e.loc.column || '..',
+          filename:e.filename || '..',
+        }
+      )
+      resolve({
+        error:e,
+        data:{name:e.name, message:e.message},
+        html:formattedHTML
+      })
+    } catch (e) {
+      reject(e)
+    }
+  });
+}
+
 function BundleApplicationHTML(appname) {
   return new Promise(function(resolve, reject) {
     var html = fs.readFileSync(path.join(__dirname, '/assets/dev.index.html')).toString();
@@ -232,10 +276,10 @@ function BundleApplicationHTML(appname) {
   });
 }
 
+/* configure the browserify bundler */
 function getBrowserify(jsFileName) {
   var b = watchify(browserify(Object.assign({}, watchify.args, {
     entries:jsFileName,
-    debug:true,
     cache : {}, // <---- here is important things for optimization
     packageCache : {}, // <----  and here
     libs: {
@@ -254,7 +298,7 @@ function getBrowserify(jsFileName) {
       ]
     }
   })));
-  b.on('error', e=> {console.log(e);})
+  //b.on('error', e=> {console.log(e);})
   return b
 }
 /* Server */

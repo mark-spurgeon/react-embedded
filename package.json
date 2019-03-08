@@ -1,6 +1,6 @@
 {
   "name": "react-embedded",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Build JS/HTML things that are easily embedded in Wordpress or other publishing platforms",
   "main": "serve.js",
   "bin": {
@@ -16,12 +16,17 @@
   "license": "MIT",
   "devDependencies": {
     "@nivo/bar": "^0.52.1",
+    "d3-array": "^2.0.3",
+    "d3-scale": "^2.2.2",
+    "d3-selection": "^1.4.0",
     "victory": "^32.0.0"
   },
   "dependencies": {
     "@babel/core": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
+    "ansi-to-html": "^0.6.10",
+    "ansi_up": "^4.0.3",
     "babel-plugin-recharts": "^1.2.0",
     "babelify": "^10.0.0",
     "browserify-global-shim": "^1.0.3",
