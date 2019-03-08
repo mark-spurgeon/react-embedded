@@ -1,6 +1,6 @@
 {
   "name": "react-embedded",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Build JS/HTML things that are easily embedded in Wordpress or other publishing platforms",
   "main": "serve.js",
   "bin": {
@@ -26,7 +26,6 @@
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
     "ansi-to-html": "^0.6.10",
-    "ansi_up": "^4.0.3",
     "babel-plugin-recharts": "^1.2.0",
     "babelify": "^10.0.0",
     "browserify-global-shim": "^1.0.3",
@@ -45,10 +44,8 @@
     "react-chartjs": "^1.2.0",
     "react-dom": "^16.8.3",
     "recharts": "^1.5.0",
-    "reload": "^2.4.0",
     "request": "^2.88.0",
     "socket.io": "^2.2.0",
-    "terser": "^3.16.1",
     "uglifyify": "^5.0.1",
     "watchify": "^3.11.1"
   },
