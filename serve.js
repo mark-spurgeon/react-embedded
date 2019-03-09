@@ -206,7 +206,7 @@ function BundleOutputHTML(appname, code, css) {
         reactDomScript:reactDomScript
       }
     )
-    resolve(outputHTML)
+    resolve(wholeHTML)
   });
 }
 
