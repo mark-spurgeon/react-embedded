@@ -1,6 +1,6 @@
 {
   "name": "react-embedded",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Build JS/HTML things that are easily embedded in Wordpress or other publishing platforms",
   "main": "serve.js",
   "bin": {
