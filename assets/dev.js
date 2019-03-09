@@ -8,20 +8,23 @@ socket.on('error', function(data) {
 })
 socket.on('js', function (data) {
   eval(data);
-  console.log('Updating JS');
-  if (document.getElementById('updater').className==='error'){
+  console.log('Updated JS');
+  if (document.getElementById('updater').className==='error') {
     if (localApp){
-      socket.emit('css',localApp)
+      socket.emit('css',localApp);
     }
   }
+  document.getElementById('embedded-component').style.display='block';
+  document.getElementById('embedded-error').style.display='none';
   document.getElementById('updater').className="updated";
   document.getElementById('updater').innerHTML="Updated at "+ getTime()+" ("+endTimer()+" seconds)";
   document.getElementById('embed-text').innerHTML = buildMessage;
 });
 socket.on('bundling-error', function (error) {
-  console.error(error.error);
   document.getElementById('embedded-style').innerHTML = '';
-  document.getElementById('embedded-component').innerHTML = unescape(encodeURIComponent(error.html));
+  document.getElementById('embedded-component').style.display='none';
+  document.getElementById('embedded-error').style.display='block';
+  document.getElementById('embedded-error').innerHTML = unescape(encodeURIComponent(error.html));
   document.getElementById('updater').className="error"
   document.getElementById('updater').innerHTML="Error ("+ getTime()+") : "+error.data.name;
 
@@ -38,6 +41,7 @@ socket.on('build', function (data) {
   document.getElementById('updater').innerHTML="Built at "+ getTime()+" ("+endTimer()+" seconds)";
 });
 socket.on('updating', function(data) {
+  console.log('Updating JS');
   startTimer();
   document.getElementById('updater').className="updating"
   document.getElementById('updater').innerHTML="Updating component..."
@@ -47,6 +51,10 @@ socket.on('restyling', function(data) {
   document.getElementById('updater').className="restyling"
   document.getElementById('updater').innerHTML="Updating styles..."
 })
+
+window.addEventListener("beforeunload", function(){
+  socket.close()
+});
 
 /* functions - ui */
 function select(e) {

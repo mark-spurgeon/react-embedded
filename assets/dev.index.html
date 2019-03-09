@@ -4,8 +4,10 @@
     <meta charset="utf-8">
     <title>Embedded React - {{app}} </title>
     <style media="screen" id="dev-stylesheet">{{{devcss}}}</style>
-    <script crossorigin src="/assets/react.production.min.js"></script>
-    <script crossorigin src="/assets/react-dom.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <!--<script crossorigin src="/assets/react.production.min.js"></script>
+    <script crossorigin src="/assets/react-dom.production.min.js"></script>-->
     <script src="/assets/socket.io.js"></script>
     <script src="/assets/dev.js"></script>
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans" rel="stylesheet">
@@ -22,6 +24,8 @@
         <div id="embedded-body">
           {{{ include }}}
           <style media="screen" id="embedded-style"></style>
+          <div id="embedded-error">
+          </div>
           <div id="embedded-component">
             [enable js]
           </div>
