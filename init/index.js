@@ -5,7 +5,7 @@
 */
 
 /* Classic React component */
-class Index extends React.Component {
+class App extends React.Component {
   render() {
     return (
       <div>
@@ -15,9 +15,4 @@ class Index extends React.Component {
     )
   }
 };
-
-/* Push the component to HTML */
-ReactDOM.render(
-  <Index />,
-  document.querySelector("#embedded-component")
-);
+export default App;
