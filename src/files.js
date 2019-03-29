@@ -1,14 +1,14 @@
-var fs = require('fs');
-var path = require('path')
+const fs = require('fs');
+const path = require('path')
 
-var package = JSON.parse(fs.readFileSync('package.json', 'utf8')) // get local package
+const package = JSON.parse(fs.readFileSync('package.json', 'utf8')) // get local package
 
-var sourcePath = package.reactEmbedded.path || 'src';
-var jsFilePattern = package.reactEmbedded.js || 'index.js';
-var cssFilePattern = package.reactEmbedded.style || 'style.scss';
-var includeFilePattern = package.reactEmbedded.include || 'include.html';
+const sourcePath = package.reactEmbedded.path || 'src';
+const jsFilePattern = package.reactEmbedded.js || 'index.js';
+const cssFilePattern = package.reactEmbedded.style || 'style.scss';
+const includeFilePattern = package.reactEmbedded.include || 'include.html';
 
-var assetsPath = path.join(__dirname, "../assets/");
+const assetsPath = path.join(__dirname, "../assets/");
 
 module.exports = {
   /* user source file paths */

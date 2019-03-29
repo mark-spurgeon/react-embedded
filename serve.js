@@ -108,7 +108,7 @@ io.on('connection', function (socket) {
   })
   /* JS render request */
   socket.on('js', function (appname) {
-    var jsFilePath=path.join(Files.source,appname, Files.jsPattern)
+    const jsFilePath=path.join(Files.source,appname, Files.jsPattern)
     var b = bundlers[jsFilePath] = getBundler(jsFilePath);
     /* Hot reload - JS (with Browserify) */
     b.on('update', function() {

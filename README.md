@@ -35,7 +35,7 @@ npm run init first-app
 
 `npm start `
 
-This will run a server at localhost:8080, where you will be able to chose your appss
+This will run a server at localhost:8080, where you will be able to view your app
 
 
 ## Why ?
@@ -44,6 +44,7 @@ React is a language that allows quick building of user interfaces. The only prob
 
 This very simple tool does just that.
 
+----
 ### todo:
 
 * take into account a directory: means that it has to take decisions on a specific file structure ✌️

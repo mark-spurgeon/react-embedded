@@ -16,8 +16,8 @@ socket.on('js', function (data) {
   }
   document.getElementById('embedded-component').style.display='block';
   document.getElementById('embedded-error').style.display='none';
-  document.getElementById('updater').className="updated";
-  document.getElementById('updater').innerHTML="Updated at "+ getTime()+" ("+endTimer()+" seconds)";
+  document.getElementById('updater').className="done update";
+  document.getElementById('updater-text').innerHTML="Updated at "+ getTime()+" ("+endTimer()+" seconds)";
   document.getElementById('embed-text').innerHTML = buildMessage;
 });
 socket.on('bundling-error', function (error) {
@@ -25,31 +25,31 @@ socket.on('bundling-error', function (error) {
   document.getElementById('embedded-component').style.display='none';
   document.getElementById('embedded-error').style.display='block';
   document.getElementById('embedded-error').innerHTML = unescape(encodeURIComponent(error.html));
-  document.getElementById('updater').className="error"
-  document.getElementById('updater').innerHTML="Error ("+ getTime()+") : "+error.data.name;
+  document.getElementById('updater').className="done error";
+  document.getElementById('updater-text').innerHTML="Error ("+ getTime()+") : "+error.data.name;
 
 });
 socket.on('css', function(data) {
   document.getElementById('embedded-style').innerHTML = data.trim();
-  document.getElementById('updater').className="restyled";
-  document.getElementById('updater').innerHTML="Restyled at "+getTime()+" ("+endTimer()+" seconds)";
+  document.getElementById('updater').className="done style";
+  document.getElementById('updater-text').innerHTML="Restyled at "+getTime()+" ("+endTimer()+" seconds)";
   document.getElementById('embed-text').innerHTML = buildMessage;
 })
 socket.on('build', function (data) {
   document.getElementById('embed-text').innerHTML = data.trim();
-  document.getElementById('updater').className="built"
-  document.getElementById('updater').innerHTML="Built at "+ getTime()+" ("+endTimer()+" seconds)";
+  document.getElementById('updater').className="done build"
+  document.getElementById('updater-text').innerHTML="Built at "+ getTime()+" ("+endTimer()+" seconds)";
 });
 socket.on('updating', function(data) {
   console.log('Updating JS');
   startTimer();
-  document.getElementById('updater').className="updating"
-  document.getElementById('updater').innerHTML="Updating component..."
+  document.getElementById('updater').className="pending update"
+  document.getElementById('updater-text').innerHTML="Updating component..."
 })
 socket.on('restyling', function(data) {
   startTimer();
-  document.getElementById('updater').className="restyling"
-  document.getElementById('updater').innerHTML="Updating styles..."
+  document.getElementById('updater').className="pending style"
+  document.getElementById('updater-text').innerHTML="Updating styles..."
 })
 
 window.addEventListener("beforeunload", function(){
@@ -63,8 +63,8 @@ function select(e) {
 function build(app){
   localApp=app;
   startTimer();
-  document.getElementById('updater').className="building"
-  document.getElementById('updater').innerHTML="Building HTML code..."
+  document.getElementById('updater').className="pending build"
+  document.getElementById('updater-text').innerHTML="Building HTML code..."
   socket.emit('build',app);
 }
 function onLoad(app) {
@@ -74,8 +74,8 @@ function onLoad(app) {
   setTimeout(function () {
     startTimer();
     socket.emit('js',app);
-    document.getElementById('updater').className="updating"
-    document.getElementById('updater').innerHTML="Loading Component...";
+    document.getElementById('updater').className="pending update"
+    document.getElementById('updater-text').innerHTML="Loading Component...";
   }, 1000);
 }
 /* functions - any */

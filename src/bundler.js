@@ -1,23 +1,24 @@
 /* Boring Imports */
-var fs = require('fs');
-var path = require('path');
+const fs = require('fs');
+const path = require('path');
 
 /* JS Bundler imports */
-var browserify = require('browserify');
-var watchify = require('watchify');
+const browserify = require('browserify');
+const watchify = require('watchify');
 
 /* CSS Bundler imports */
-var sass = require('node-sass');
+const sass = require('node-sass');
 
 /* HTML Bundler imports */
-var Mustache = require('mustache');
-var minify = require('html-minifier').minify;
+const Mustache = require('mustache');
+const minify = require('html-minifier').minify;
 
 
 var Files = require('./files.js')
+
 /* Initialise browserify bundler */
 function getBundler(jsFileName) {
-  var bundler = watchify(browserify(Object.assign({}, watchify.args, {
+  let bundler = watchify(browserify(Object.assign({}, watchify.args, {
     entries:jsFileName,
     cache : {},
     packageCache : {},
@@ -93,7 +94,7 @@ function BundleComponent(bundler, jsFileName, production=false){
 function BundleStyle(cssFileName) {
   return new Promise(function(resolve, reject) {
     if (fs.existsSync(cssFileName)) {
-      var css = fs.readFileSync(cssFileName).toString();
+      const css = fs.readFileSync(cssFileName).toString();
       try {
         var result = sass.renderSync({data:css});
         resolve(result.css.toString());
@@ -200,7 +201,7 @@ function BundleProductionHTML(appname, code, css) {
         reactDomScript:reactDomScript
       }
     )
-    resolve(completeHTML)
+    resolve(`<iframe class="embedded-react" src="data:text/html;charset:utf-8,${escape(completeHTML)}"></iframe>`)
   });
 }
 
