@@ -1,6 +1,6 @@
 {
   "name": "react-embedded",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Build JS/HTML things that are easily embedded in Wordpress or other publishing platforms",
   "repository":"https://github.com/the-duck/react-embedded",
   "main": "serve.js",

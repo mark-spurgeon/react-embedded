@@ -201,7 +201,7 @@ function BundleProductionHTML(appname, code, css) {
         reactDomScript:reactDomScript
       }
     )
-    resolve(`<iframe class="embedded-react" src="data:text/html;charset:utf-8,${escape(completeHTML)}"></iframe>`)
+    resolve(`<iframe class="embedded-react" scrolling="no" src="data:text/html;charset:utf-8,${escape(completeHTML)}"></iframe>`)
   });
 }
 

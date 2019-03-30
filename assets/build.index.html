@@ -1,8 +1,19 @@
-<div id="embedded-body">
-  {{{ include }}}
-  <script type="text/javascript">{{{ reactScript }}}</script>
-  <script type="text/javascript">{{{ reactDomScript }}}</script>
-  <style media="screen" id="embedded-style">{{{ css }}}</style>
-  <div id="embedded-component">[enable js></div>
-  <script id="embedded-bundle" charset="UTF-8">{{{ code }}}</script>
-</div>
+
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr" style="margin:0px;padding:0px;">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body style="margin:0px;padding:0px;">
+    <div id="embedded-body">
+      {{{ include }}}
+      <script type="text/javascript">{{{ reactScript }}}</script>
+      <script type="text/javascript">{{{ reactDomScript }}}</script>
+      <style media="screen" id="embedded-style">{{{ css }}}</style>
+      <div id="embedded-component">[enable js></div>
+      <script id="embedded-bundle" charset="UTF-8">{{{ code }}}</script>
+    </div>
+  </body>
+</html>
